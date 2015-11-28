@@ -1,1 +1,1 @@
-rsync -av --delete -e ssh . ssh-w005ef3e@w005ef3e.kasserver.com:/www/htdocs/w005ef3e/perf/ https://github.com/clubajax/mocha-bootstrap
+rsync -av --delete -e ssh . ssh-w005ef3e@w005ef3e.kasserver.com:/www/htdocs/w005ef3e/perf/

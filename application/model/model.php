@@ -132,8 +132,6 @@ class Model
         $date = strtotime($completed);
         $mysqlDate = date(DATE_ATOM, $date);
 
-        echo "speedindex". $speedIndex;
-
         $sql = "REPLACE INTO speedtest (testId, testUrl, fromBrowser, completed, type, loadTime, TTFB, requests, speedIndex, render, visualComplete, lastVisualChange, firstPaint) VALUES (:testId, :testUrl, :fromBrowser, :completed, :type, :loadTime, :TTFB, :requests, :speedIndex, :render, :visualComplete, :lastVisualChange, :firstPaint)";
         $query = $this->db->prepare($sql);
         $parameters = array(
@@ -158,9 +156,9 @@ class Model
         /**
      * Get all songs from database
      */
-    public function getAllTestResults()
+    public function getAllTestResults($src)
     {
-        $sql = "SELECT * FROM speedtest where type = 'first' and testUrl like '%achtsam-miteinander%'order by type, completed";
+        $sql = "SELECT * FROM speedtest where type = 'first' and testUrl like '%$src%'order by type, completed";
         $query = $this->db->prepare($sql);
         $query->execute();
 

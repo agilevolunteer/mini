@@ -3,11 +3,12 @@ body {
     font-size: 14px;
 }
 .logo {
-    font-size: 100px;
+    font-size: 65px;
     font-weight: bolder;
     letter-spacing: -6px;
-    color: #222;
+    color: #10aded;
     margin: 20px 30px;
+    font-style: italic;
 }
 .logo .number {
     color: #222;

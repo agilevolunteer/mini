@@ -36,8 +36,9 @@ $(function() {
         });
     }
 
-    if ($('#vie-test-results').length !== 0) {
-        $.get(url + "/speed/getEnhanced Results", function(data){
+    if ($('#vie-test-results').length !== 0 && $('#vie-src').length !== 0) {
+        var src = $('#vie-src').attr('value');
+        $.get(url + "/speed/getEnhancedResults?src="+src, function(data){
             for (key in data.indicators){
                 var indicator = data.indicators[key];
 

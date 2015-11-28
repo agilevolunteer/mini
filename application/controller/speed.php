@@ -27,7 +27,7 @@ class Speed extends Controller
 	 * ACTION: getResults
 	 */
 	public function getEnhancedResults(){
-		$results = $this->model->getAllTestResults();
+		$results = $this->model->getAllTestResults($_GET["src"]);
 		$enhanced = array(
 			"url" => $results[0]->testUrl,
 			"browser" => $results[0]->fromBrowser,
@@ -95,50 +95,50 @@ class Speed extends Controller
             $parameter = $_GET["testId"];
             try {
             	$xml = simplexml_load_file("http://www.webpagetest.org/xmlResult/".$parameter);
-    		} catch (Exception $e) {
+	    		
+	    		$data = $xml->data;
+	    		$result = $xml->data->median->firstView;
+
+	    		$this->model->addTestResult(
+	    			$data->testId,
+	    			$data->testUrl,
+	    			$data->from,
+	    			$data->completed,
+	    			"first",
+	    			$result->loadTime,
+	    			$result->TTFB,
+	    			$result->requests,
+	    			$result->SpeedIndex,
+	    			$result->render,
+	    			$result->visualComplete,
+	    			$result->lastVisualChange,
+	    			$result->firstPaint
+				);
+
+	    		$result = $xml->data->median->repeatView;
+
+	    		$this->model->addTestResult(
+	    			$data->testId,
+	    			$data->testUrl,
+	    			$data->from,
+	    			$data->completed,
+	    			"repeat",
+	    			$result->loadTime,
+	    			$result->TTFB,
+	    			$result->requests,
+	    			$result->SpeedIndex,
+	    			$result->render,
+	    			$result->visualComplete,
+	    			$result->lastVisualChange,
+	    			$result->firstPaint
+				);
+				
+				http_response_code(201);
+				echo json_encode($data->testId);
+			} catch (Exception $e) {
 				http_response_code(400);
 				echo json_encode("Bad Request, no testrun for testID"+ $parameter);
     		}
-
-    		$data = $xml->data;
-    		$result = $xml->data->median->firstView;
-
-    		$this->model->addTestResult(
-    			$data->testId,
-    			$data->testUrl,
-    			$data->from,
-    			$data->completed,
-    			"first",
-    			$result->loadTime,
-    			$result->TTFB,
-    			$result->requests,
-    			$result->SpeedIndex,
-    			$result->render,
-    			$result->visualComplete,
-    			$result->lastVisualChange,
-    			$result->firstPaint
-			);
-
-    		$result = $xml->data->median->repeatView;
-
-    		$this->model->addTestResult(
-    			$data->testId,
-    			$data->testUrl,
-    			$data->from,
-    			$data->completed,
-    			"repeat",
-    			$result->loadTime,
-    			$result->TTFB,
-    			$result->requests,
-    			$result->SpeedIndex,
-    			$result->render,
-    			$result->visualComplete,
-    			$result->lastVisualChange,
-    			$result->firstPaint
-			);
-			
-			http_response_code(201);
-			echo json_encode($data->testId);
 
         } else {
         	http_response_code(400);

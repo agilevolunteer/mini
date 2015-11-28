@@ -1,5 +1,5 @@
 CREATE TABLE mini.speedtest (
-testId VARCHAR(32) NOT NULL,
+testId VARCHAR(128) NOT NULL,
 testUrl VARCHAR(128),
 fromBrowser VARCHAR(64),
 completed DATETIME,
