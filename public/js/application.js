@@ -36,4 +36,63 @@ $(function() {
         });
     }
 
+    if ($('#vie-test-results').length !== 0) {
+        $.get(url + "/speed/getEnhanced Results", function(data){
+            for (key in data.indicators){
+                var indicator = data.indicators[key];
+
+                var resultContainer = $('#vie-test-results').append("<div class='vie-test-result-container'/>");
+                resultContainer.append("<h3>"+ key +"</h3>");
+                var itemContainer = $("<div class='vie-test-result-item'/>");
+                resultContainer.append(itemContainer);
+                var dataset = new vis.DataSet(indicator);
+                var startDate = new Date(indicator[0].x)
+                var endDate = new Date(indicator[indicator.length-1].x)
+
+                startDate.setDate(startDate.getDate() - 1);
+                endDate.setDate(endDate.getDate() + 1);
+
+                options = {
+                    start: startDate,
+                    end: endDate
+                }
+
+                var graph2d = new vis.Graph2d(itemContainer[0], dataset, options);
+
+            }
+            
+
+
+/*            var render = [];
+            var speedIndex = [];
+            data.forEach(function(item){
+                console.log(item.completed, item.speedIndex);
+                render.push({
+                    x: item.completed,
+                    y: item.render
+
+                });
+
+                speedIndex.push({
+                    x: item.completed,
+                    y: item.speedIndex
+
+                });
+            });
+
+            var container = document.getElementById('vie-test-results--render');
+
+            var container2 = document.getElementById('vie-test-results--speed-index');
+            options = {
+                start: '2015-11-06',
+                end: '2015-11-11'
+            }
+
+            var dataset = new vis.DataSet(render);
+            var dataset2 = new vis.DataSet(speedIndex);
+            var graph2d = new vis.Graph2d(container, dataset, options);
+            var graph2d2 = new vis.Graph2d(container2, dataset2, options);*/
+        });
+    }
+
 });

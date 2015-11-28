@@ -126,4 +126,48 @@ class Model
         // fetch() is the PDO method that get exactly one result
         return $query->fetch()->amount_of_songs;
     }
+
+    public function addTestResult($testId, $testUrl, $fromBrowser, $completed, $type, $loadTime, $TTFB, $requests, $speedIndex, $render, $visualComplete, $lastVisualChange, $firstPaint)
+    {
+        $date = strtotime($completed);
+        $mysqlDate = date(DATE_ATOM, $date);
+
+        echo "speedindex". $speedIndex;
+
+        $sql = "REPLACE INTO speedtest (testId, testUrl, fromBrowser, completed, type, loadTime, TTFB, requests, speedIndex, render, visualComplete, lastVisualChange, firstPaint) VALUES (:testId, :testUrl, :fromBrowser, :completed, :type, :loadTime, :TTFB, :requests, :speedIndex, :render, :visualComplete, :lastVisualChange, :firstPaint)";
+        $query = $this->db->prepare($sql);
+        $parameters = array(
+            'testId' => $testId.$type, 
+            'testUrl' => $testUrl, 
+            'fromBrowser' => $fromBrowser, 
+            'completed' => $mysqlDate,
+            'type' => $type, 
+            'loadTime' => $loadTime, 
+            'TTFB' => $TTFB, 
+            'requests' => $requests, 
+            'speedIndex' => $speedIndex, 
+            'render' => $render, 
+            'visualComplete' => $visualComplete, 
+            'lastVisualChange' => $lastVisualChange, 
+            'firstPaint' => $firstPaint,
+        );
+
+        $query->execute($parameters);
+    }
+
+        /**
+     * Get all songs from database
+     */
+    public function getAllTestResults()
+    {
+        $sql = "SELECT * FROM speedtest where type = 'first' and testUrl like '%achtsam-miteinander%'order by type, completed";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        // fetchAll() is the PDO method that gets all result rows, here in object-style because we defined this in
+        // core/controller.php! If you prefer to get an associative array as the result, then do
+        // $query->fetchAll(PDO::FETCH_ASSOC); or change core/controller.php's PDO options to
+        // $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC ...
+        return $query->fetchAll();
+    }
 }

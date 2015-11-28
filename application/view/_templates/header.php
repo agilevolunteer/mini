@@ -12,6 +12,7 @@
 
     <!-- CSS -->
     <link href="<?php echo URL; ?>css/style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.9.0/vis.min.css" rel="stylesheet">
 </head>
 <body>
     <!-- logo -->
@@ -20,9 +21,11 @@
     </div>
 
     <!-- navigation -->
+    <!--
     <div class="navigation">
         <a href="<?php echo URL; ?>">home</a>
         <a href="<?php echo URL; ?>home/exampleone">subpage</a>
         <a href="<?php echo URL; ?>home/exampletwo">subpage 2</a>
         <a href="<?php echo URL; ?>songs">songs</a>
     </div>
+    -->
