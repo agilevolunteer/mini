@@ -158,7 +158,7 @@ class Model
      */
     public function getAllTestResults($src)
     {
-        $sql = "SELECT * FROM speedtest where type = 'first' and testUrl like '%$src%'order by type, completed";
+        $sql = "SELECT * FROM speedtest where testUrl like '%$src%'order by type, completed";
         $query = $this->db->prepare($sql);
         $query->execute();
 

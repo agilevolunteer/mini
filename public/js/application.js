@@ -43,22 +43,40 @@ $(function() {
                 var indicator = data.indicators[key];
 
                 var resultContainer = $('#vie-test-results').append("<div class='vie-test-result-container'/>");
-                resultContainer.append("<h3>"+ key +"</h3>");
+                resultContainer.append("<h3 class='vie-test-restult-headline'>"+ key +"</h3>");
                 var itemContainer = $("<div class='vie-test-result-item'/>");
                 resultContainer.append(itemContainer);
                 var dataset = new vis.DataSet(indicator);
                 var startDate = new Date(indicator[0].x)
                 var endDate = new Date(indicator[indicator.length-1].x)
 
+                var names = ['First View', 'Repeat View'];
+                var groups = new vis.DataSet();
+                groups.add({
+                  id: "first",
+                  content: names[0],
+                  options: {
+                    drawPoints: false
+                  }});
+
+                groups.add({
+                  id: "repeat",
+                  content: names[1],
+                  options: {
+                    drawPoints: false
+                  }});
+
+
                 startDate.setDate(startDate.getDate() - 1);
                 endDate.setDate(endDate.getDate() + 1);
 
                 options = {
                     start: startDate,
-                    end: endDate
+                    end: endDate,
+                    legend: true
                 }
 
-                var graph2d = new vis.Graph2d(itemContainer[0], dataset, options);
+                var graph2d = new vis.Graph2d(itemContainer[0], dataset, groups, options);
 
             }
             

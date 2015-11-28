@@ -44,14 +44,14 @@ class Speed extends Controller
 		);
 
 		foreach ($results as $testRun) {
-			$loadTime = $this->getTestRunItem($testRun->completed, $testRun->loadTime);
-			$ttfb = $this->getTestRunItem($testRun->completed, $testRun->TTFB);
-			$requests = $this->getTestRunItem($testRun->completed, $testRun->requests);
-			$speedIndex = $this->getTestRunItem($testRun->completed, $testRun->speedIndex);
-			$render = $this->getTestRunItem($testRun->completed, $testRun->render);
-			$visualComplete = $this->getTestRunItem($testRun->completed, $testRun->visualComplete);
-			$lastVisualChange = $this->getTestRunItem($testRun->completed, $testRun->lastVisualChange);
-			$firstPaint = $this->getTestRunItem($testRun->completed, $testRun->firstPaint);
+			$loadTime = $this->getTestRunItem($testRun->completed, $testRun->loadTime, $testRun->type);
+			$ttfb = $this->getTestRunItem($testRun->completed, $testRun->TTFB, $testRun->type);
+			$requests = $this->getTestRunItem($testRun->completed, $testRun->requests, $testRun->type);
+			$speedIndex = $this->getTestRunItem($testRun->completed, $testRun->speedIndex, $testRun->type);
+			$render = $this->getTestRunItem($testRun->completed, $testRun->render, $testRun->type);
+			$visualComplete = $this->getTestRunItem($testRun->completed, $testRun->visualComplete, $testRun->type);
+			$lastVisualChange = $this->getTestRunItem($testRun->completed, $testRun->lastVisualChange, $testRun->type);
+			$firstPaint = $this->getTestRunItem($testRun->completed, $testRun->firstPaint, $testRun->type);
 
 			array_push($enhanced["indicators"]["loadTime"], $loadTime);
 			array_push($enhanced["indicators"]["ttfb"], $ttfb);
@@ -72,7 +72,8 @@ class Speed extends Controller
 	function getTestRunItem($key, $value, $group = 1){
 		return array(
 				"x" => $key,
-				"y" => $value
+				"y" => $value,
+				"group" => $group
 		);
 	}
 

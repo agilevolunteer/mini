@@ -4,15 +4,17 @@ body {
 }
 .logo {
     font-size: 65px;
-    font-weight: bolder;
+    font-weight: lighter;
     letter-spacing: -6px;
-    color: #10aded;
+    background-color: #10aded;
+    color: #fff;
     margin: 20px 30px;
-    font-style: italic;
+    font-style: oblique;
+
 }
 .logo .number {
-    color: #222;
-    opacity: 0.1;
+    color: #fff;
+    opacity: 0.5;
 }
 .navigation {
     margin-left: 33px;
@@ -91,6 +93,10 @@ body {
 
 .vie-test-restult-item{
     margin: 8px;
+}
+
+.vie-test-restult-headline{
+    text-transform: capitalize;
 }
 
 
