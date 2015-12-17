@@ -32,12 +32,12 @@ class Speed extends Controller
 			"url" => $results[0]->testUrl,
 			"browser" => $results[0]->fromBrowser,
 			"indicators" => array(
+				"ttfb" => array(),
 				"speedIndex" => array(),
 				"render" => array(),
 				"firstPaint" => array(),
 				"loadTime" => array(),
 				"requests" => array(),
-				"ttfb" => array(),
 				"visualComplete" => array(),
 				"lastVisualChange" => array()
 			)
@@ -75,6 +75,37 @@ class Speed extends Controller
 				"y" => $value,
 				"group" => $group
 		);
+	}
+
+	public function runTests(){
+
+		$url = 'http://www.webpagetest.org/runtest.php';
+		$data = array(
+			'url' => 'http://achtsam-miteinander.de', 
+			'location' => 'ec2-eu-central-1:Firefox.DSL',
+			'runs' => '10',
+			'f' => 'json',
+			'k' => 'A.6a7a1638d3a8b2534c41126324bbf21e',
+			'runs' => '10',
+			'runs' => '10',
+		);
+
+		// use key 'http' even if you send the request to https://...
+		$options = array(
+		    'http' => array(
+		        'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+		        'method'  => 'POST',
+		        'content' => http_build_query($data),
+		    ),
+		);
+		$context  = stream_context_create($options);
+		$result = file_get_contents($url, false, $context);
+
+		echo "<pre>";
+		print_r($data);
+		var_dump($result);
+
+		echo "</pre>";
 	}
 
     /**

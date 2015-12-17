@@ -82,14 +82,16 @@ body {
     color: #fff;
 }
 
+/*
 #vie-test-results {
-    -webkit-column-count: 2; /* Chrome, Safari, Opera */
-    -moz-column-count: 2; /* Firefox */
+    -webkit-column-count: 2;
+    -moz-column-count: 2; 
     column-count: 2;
     column-width: 500px;
     -moz-column-width: 500px;
     -webkit-column-width: 500px;
 }
+*/
 
 .vie-test-restult-item{
     margin: 8px;
@@ -98,5 +100,3 @@ body {
 .vie-test-restult-headline{
     text-transform: capitalize;
 }
-
-

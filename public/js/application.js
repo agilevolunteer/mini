@@ -48,6 +48,19 @@ $(function() {
                 resultContainer.append(itemContainer);
                 var dataset = new vis.DataSet(indicator);
                 var startDate = new Date(indicator[0].x)
+                var pastMonth = new Date();
+                // pastMonth.setMonth(pastMonth.getMonth() - 1);
+                // pastMonth.setHours(0);
+                // pastMonth.setMinutes(0);
+                // pastMonth.setSeconds(0);
+                pastMonth.setDate(pastMonth.getDate() - 14);
+
+                if (pastMonth > startDate){
+                  startDate = pastMonth
+                }
+
+
+                console.log(startDate);
                 var endDate = new Date(indicator[indicator.length-1].x)
 
                 var names = ['First View', 'Repeat View'];
@@ -79,7 +92,7 @@ $(function() {
                 var graph2d = new vis.Graph2d(itemContainer[0], dataset, groups, options);
 
             }
-            
+
 
 
 /*            var render = [];

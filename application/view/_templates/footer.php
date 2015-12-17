@@ -8,7 +8,7 @@
     </script>
 
     <!-- our JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.9.0/vis.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/vis/4.9.0/vis.min.js"></script>
     <script src="<?php echo URL; ?>js/application.js"></script>
 </body>
 </html>

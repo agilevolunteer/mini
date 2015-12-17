@@ -13,8 +13,8 @@
 define('ENVIRONMENT', 'development');
 
 if (ENVIRONMENT == 'development' || ENVIRONMENT == 'dev') {
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
+	error_reporting(E_ALL);
+	ini_set("display_errors", 1);
 }
 
 /**
@@ -51,8 +51,8 @@ define('URL', URL_PROTOCOL . URL_DOMAIN . URL_SUB_FOLDER);
  * This is the place where you define your database credentials, database type etc.
  */
 define('DB_TYPE', 'mysql');
-define('DB_HOST', '127.0.0.1');
-define('DB_NAME', 'mini');
-define('DB_USER', 'root');
-define('DB_PASS', '12345678');
+define('DB_HOST', 'moerssl.net');
+define('DB_NAME', 'd00eb376');
+define('DB_USER', 'd00eb376');
+define('DB_PASS', '8sUbCc9NYXoNquVp');
 define('DB_CHARSET', 'utf8');
