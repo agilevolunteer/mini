@@ -135,19 +135,32 @@ class Model
         $sql = "REPLACE INTO speedtest (testId, testUrl, fromBrowser, completed, type, loadTime, TTFB, requests, speedIndex, render, visualComplete, lastVisualChange, firstPaint) VALUES (:testId, :testUrl, :fromBrowser, :completed, :type, :loadTime, :TTFB, :requests, :speedIndex, :render, :visualComplete, :lastVisualChange, :firstPaint)";
         $query = $this->db->prepare($sql);
         $parameters = array(
-            'testId' => $testId.$type, 
-            'testUrl' => $testUrl, 
-            'fromBrowser' => $fromBrowser, 
+            'testId' => $testId.$type,
+            'testUrl' => $testUrl,
+            'fromBrowser' => $fromBrowser,
             'completed' => $mysqlDate,
-            'type' => $type, 
-            'loadTime' => $loadTime, 
-            'TTFB' => $TTFB, 
-            'requests' => $requests, 
-            'speedIndex' => $speedIndex, 
-            'render' => $render, 
-            'visualComplete' => $visualComplete, 
-            'lastVisualChange' => $lastVisualChange, 
+            'type' => $type,
+            'loadTime' => $loadTime,
+            'TTFB' => $TTFB,
+            'requests' => $requests,
+            'speedIndex' => $speedIndex,
+            'render' => $render,
+            'visualComplete' => $visualComplete,
+            'lastVisualChange' => $lastVisualChange,
             'firstPaint' => $firstPaint,
+        );
+
+        $query->execute($parameters);
+    }
+
+    public function addTestRun($testId, $testUrl, $statusCode)
+    {
+        $sql = "REPLACE INTO teststatus (testId, testUrl, status) VALUES (:testId, :testUrl, :status)";
+        $query = $this->db->prepare($sql);
+        $parameters = array(
+            'testId' => $testId,
+            'testUrl' => $testUrl,
+            'status' => $statusCode
         );
 
         $query->execute($parameters);
@@ -168,4 +181,34 @@ class Model
         // $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC ...
         return $query->fetchAll();
     }
+
+    /**
+     * Get all songs from database
+     */
+    public function getCurrentTestRuns()
+    {
+        $sql = "SELECT * FROM teststatus where status != 200 and status != 400";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        // fetchAll() is the PDO method that gets all result rows, here in object-style because we defined this in
+        // core/controller.php! If you prefer to get an associative array as the result, then do
+        // $query->fetchAll(PDO::FETCH_ASSOC); or change core/controller.php's PDO options to
+        // $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC ...
+        return $query->fetchAll();
+    }
+
+    
+   public function getTestTargets()
+   {
+       $sql = "SELECT DISTINCT testUrl FROM speedtest WHERE testUrl !=  ''";
+       $query = $this->db->prepare($sql);
+       $query->execute();
+
+       // fetchAll() is the PDO method that gets all result rows, here in object-style because we defined this in
+       // core/controller.php! If you prefer to get an associative array as the result, then do
+       // $query->fetchAll(PDO::FETCH_ASSOC); or change core/controller.php's PDO options to
+       // $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC ...
+       return $query->fetchAll();
+   }
 }
